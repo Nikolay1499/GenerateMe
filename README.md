@@ -1,2 +1,2 @@
 # GenerateMe
-A generative adversarial networks using Pytorch that is trained and the trained model will be used by a flask web application.
+A generative adversarial network using Pytorch which when trained will be used by a flask web application to display the generated images. The applcation will be then put in a docker container and deployed to a cloud platform(probably AWS). The website will have to option to generate images with a linear generator and a convolutional generator so the users can compare the quality of GAN vs DCGAN.
