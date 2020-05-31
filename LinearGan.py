@@ -44,11 +44,11 @@ G.load_state_dict(torch.load("linearGanGeneratorModel.pt"))
 #corresponding to the image.
 def getLinearImage():
   with torch.no_grad():
-      test_z = torch.randn(100, 100).to(device)
+      test_z = torch.randn(1, 100).to(device)
       generated = G(test_z)
       generated = generated.cpu()
       numpy = generated[0].view(64, 64).numpy()
-      return numpy
       save_image(generated[0].view(64, 64), "cat.png", normalize = True)
+      return numpy
             
 arr = getLinearImage()
