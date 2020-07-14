@@ -55,8 +55,3 @@ def getConvImage():
     generated = netG(test)
     generated = generated.cpu()
     return np.transpose(vutils.make_grid(generated[0].to(device), padding=5, normalize=True).cpu(),(1,2,0)).numpy()
-    
-arr = getConvImage()
-plt.imshow(arr)
-plt.axis("off")
-plt.show()

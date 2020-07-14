@@ -50,5 +50,3 @@ def getLinearImage():
       numpy = generated[0].view(64, 64).numpy()
       save_image(generated[0].view(64, 64), "cat.png", normalize = True)
       return numpy
-            
-arr = getLinearImage()
