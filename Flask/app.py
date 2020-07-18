@@ -35,11 +35,10 @@ def saveImageLinear():
     return getImage(getLinearImage())
 
 def getImage(arr):
-    img = Image.fromarray(arr.astype('uint8'))
-
+    img = Image.fromarray(arr.astype("uint8"))
     file_object = io.BytesIO()
 
-    img.save(file_object, 'png')  
+    img.save(file_object, "PNG")  
     file_object.seek(0)
 
-    return send_file(file_object, mimetype='image/png')
+    return send_file(file_object, mimetype="image/PNG")
