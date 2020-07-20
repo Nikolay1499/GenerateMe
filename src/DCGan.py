@@ -45,7 +45,7 @@ class Generator(nn.Module):
 netG = Generator().to(device)
 
 #loading the pretrained model
-netG.load_state_dict(torch.load("dcGanGeneratorModel.pt"))
+netG.load_state_dict(torch.load("static\Models\dcGanGeneratorModel.pt"))
 
 #You can call this method from an api for example and it will return the numpy
 #corresponding to the image.
@@ -53,5 +53,6 @@ def getConvImage():
   with torch.no_grad():
     test = torch.randn(128, 100, 1, 1, device=device)
     generated = netG(test)
-    generated = generated.cpu()
-    return np.transpose(vutils.make_grid(generated[0].to(device), padding=5, normalize=True).cpu(),(1,2,0)).numpy()
+    numpy = np.transpose(vutils.make_grid(generated[0].to(device), padding=5, normalize=True).cpu(),(1,2,0)).numpy()
+    save_image(generated[0].view(3, 64, 64), "static/Photos/image.png", normalize = True)
+    return numpy

@@ -17,4 +17,4 @@ else:
     device = torch.device("cpu")
 
 def getStyleImage():
-  return null
+  return None
