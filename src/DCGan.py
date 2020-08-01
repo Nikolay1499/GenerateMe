@@ -3,12 +3,10 @@ is trained we don't need the Discriminator so we can discard it."""
 import torch
 import torchvision
 from torchvision import transforms, datasets
-from tqdm import tqdm
 import matplotlib.pyplot as plt
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-import cv2
 import numpy as np
 import os
 from torchvision.utils import save_image
@@ -45,7 +43,7 @@ class Generator(nn.Module):
 netG = Generator().to(device)
 
 #loading the pretrained model
-netG.load_state_dict(torch.load("static\Models\dcGanGeneratorModel.pt"))
+netG.load_state_dict(torch.load("static/Models/dcGanGeneratorModel.pt", map_location=torch.device("cpu")))
 
 #You can call this method from an api for example and it will return the numpy
 #corresponding to the image.
