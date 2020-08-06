@@ -3,9 +3,9 @@ from PIL import Image
 import numpy as np
 import io
 import os
-from LinearGan import getLinearImage
-from DCGan import getConvImage
-from StyleGan import getStyleImage
+from .LinearGan import getLinearImage
+from .DCGan import getConvImage
+from .StyleGan import getStyleImage
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -16,17 +16,7 @@ IMAGE_FOLDER = os.path.join("static", "Photos")
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = IMAGE_FOLDER
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-
-def create_app():
-  app = Flask(__name__)
-  app.config["UPLOAD_FOLDER"] = IMAGE_FOLDER
-  app.config["TEMPLATES_AUTO_RELOAD"] = True
-  app.add_url_rule("/", "index", index)
-  app.add_url_rule("/index", "index", index)
-  app.add_url_rule("/getStyleImage", "showImageStyle", showImageStyle)
-  app.add_url_rule("/getConvImage", "showImageConv", showImageConv)
-  app.add_url_rule("/getLinearImage", "showImageLinear", showImageLinear)
-  return app
+folder = os.path.dirname(os.path.abspath(__file__))
 
 @app.route("/")
 @app.route("/index")
@@ -49,7 +39,8 @@ def showImageLinear():
     return getImage()
 
 def getImage():
-    img = Image.open("static/Photos/image.png")
+    file = my_file = os.path.join(folder, "static/Photos/image.png")
+    img = Image.open(file)
     file_object = io.BytesIO()
 
     img.save(file_object, "PNG")  
@@ -58,3 +49,7 @@ def getImage():
     response = send_file(file_object, mimetype="image/PNG")
     response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
     return response
+    
+    
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

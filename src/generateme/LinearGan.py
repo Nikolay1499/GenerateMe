@@ -36,7 +36,10 @@ class Generator(nn.Module):
 G = Generator().to(device)
 
 #loading the pretrained model
-G.load_state_dict(torch.load("static/Models/linearGanGeneratorModel.pt", map_location=torch.device("cpu")))
+
+folder = os.path.dirname(os.path.abspath(__file__))
+file = my_file = os.path.join(folder, "static/Models/linearGanGeneratorModel.pt")
+G.load_state_dict(torch.load(file, map_location=torch.device("cpu")))
 
 #You can call this method from an api for example and it will return the numpy
 #corresponding to the image.
@@ -47,5 +50,6 @@ def getLinearImage():
       generated = generated.cpu()
       numpy = generated[0].view(64, 64).numpy()
       numpy = numpy / 2 + 0.5
-      save_image(generated[0].view(64, 64), "static/Photos/image.png", normalize = True)
+      file = my_file = os.path.join(folder, "static/Photos/image.png")
+      save_image(generated[0].view(64, 64), file, normalize = True)
       return numpy

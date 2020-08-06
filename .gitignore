@@ -1,8 +1,11 @@
 # Miscellaneous
 *.pyc
 src/__pycache__/
+src/generateme/__pycache__/
 .cache/
 .pytest_cache/
 .coverage
 dist/
 build/
+*.egg-info
+/dist/
