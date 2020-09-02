@@ -12,10 +12,16 @@ COPY . .
 # install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-WORKDIR /usr/app/src/generateme
+WORKDIR /usr/app/src/
+
+RUN pip install -e .
+
+WORKDIR /usr/app
 
 # tell the port number the container should expose
 EXPOSE 5000
 
+ENV FLASK_APP=generateme
+
 # run the command
-CMD ["python", "./pywsgi.py"]
+CMD ["flask", "run", "--host=0.0.0.0"]

@@ -1,6 +1,6 @@
 from flask import Flask
 import os
-from generateme.app import app
+import generateme.pywsgi
 from generateme.app import index, showImageConv, showImageLinear, showImageStyle
 IMAGE_FOLDER = os.path.join("static", "Photos")
 

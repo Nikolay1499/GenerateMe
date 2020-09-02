@@ -1,0 +1,1 @@
+A Flask application that uses different implementations of Generative adversarial networks to simulate the improvement of quality. Currently there is GAN and DCGAN.StyleGAN 2 is currently being worked on. The GANs are PyTorch Generator neural networks that save the image.

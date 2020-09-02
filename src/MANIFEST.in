@@ -1,0 +1,6 @@
+include README.rst
+include generateme/templates/*.html
+include generateme/templates/*.css
+include generateme/templates/*.js
+include generateme/static/Models/*.pt
+include generateme/static/Photos/*.png

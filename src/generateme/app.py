@@ -3,13 +3,9 @@ from PIL import Image
 import numpy as np
 import io
 import os
-from .LinearGan import getLinearImage
-from .DCGan import getConvImage
-from .StyleGan import getStyleImage
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-import random
+from generateme.LinearGan import getLinearImage
+from generateme.DCGan import getConvImage
+from generateme.StyleGan import getStyleImage
 
 IMAGE_FOLDER = os.path.join("static", "Photos")
 
@@ -51,5 +47,5 @@ def getImage():
     return response
     
     
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+if __name__ == '__main__':
+    app.run(host="0.0.0.0",port=5000)
