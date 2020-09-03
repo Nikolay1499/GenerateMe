@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+    web:
+        image: 131099/generateme
+        expose:
+            - 5000
+        logging:
+            driver: awslogs
+            options: 
+                awslogs-group: generateme
+                awslogs-region: eu-west-2
+                awslogs-stream-prefix: web
+    server:
+        image: 131099/generateme-server
+        ports:
+            - 80:80
+        environment:
+            - DOCKER_PROVIDER = ecs
+        depends_on:
+            - web
+        logging:
+            driver: awslogs
+            options: 
+                awslogs-group: generateme
+                awslogs-region: eu-west-2
+                awslogs-stream-prefix: server
