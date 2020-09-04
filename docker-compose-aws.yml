@@ -5,6 +5,8 @@ services:
         image: 131099/generateme
         expose:
             - 5000
+        environment:
+            - DOCKER_PROVIDER = ecs
         logging:
             driver: awslogs
             options: 
@@ -19,6 +21,8 @@ services:
             - DOCKER_PROVIDER = ecs
         depends_on:
             - web
+        links:
+            - "web"
         logging:
             driver: awslogs
             options: 
