@@ -9,8 +9,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
 import os
-from torchvision.utils import save_image
-import torchvision.utils as vutils
+from torchvision.utils import make_grid
+from PIL import Image
 
 if torch.cuda.is_available():
     device = torch.device("cuda:0")
@@ -44,16 +44,16 @@ netG = Generator().to(device)
 
 #loading the pretrained model
 folder = os.path.dirname(os.path.abspath(__file__))
-file = my_file = os.path.join(folder, "static/Models/dcGanGeneratorModel.pt")
+file = os.path.join(folder, "static/Models/dcGanGeneratorModel.pt")
 netG.load_state_dict(torch.load(file, map_location=torch.device("cpu")))
 
 #You can call this method from an api for example and it will return the numpy
 #corresponding to the image.
 def getConvImage():
-  with torch.no_grad():
-    test = torch.randn(128, 100, 1, 1, device=device)
-    generated = netG(test)
-    numpy = np.transpose(vutils.make_grid(generated[0].to(device), padding=5, normalize=True).cpu(),(1,2,0)).numpy()
-    file = my_file = os.path.join(folder, "static/Photos/image.png")
-    save_image(generated[0].view(3, 64, 64), file, normalize = True)
-    return numpy
+    with torch.no_grad():
+        test = torch.randn(128, 100, 1, 1, device=device)
+        generated = netG(test)
+        grid = make_grid(generated[0].view(3, 64, 64), normalize = True)
+        im = grid.mul(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).to("cpu", torch.uint8).numpy()
+        im = Image.fromarray(im)
+        return im

@@ -9,7 +9,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
 import os
-from torchvision.utils import save_image
+from torchvision.utils import make_grid
+from PIL import Image
 
 if torch.cuda.is_available():
     device = torch.device("cuda:0")
@@ -36,20 +37,18 @@ class Generator(nn.Module):
 G = Generator().to(device)
 
 #loading the pretrained model
-
 folder = os.path.dirname(os.path.abspath(__file__))
-file = my_file = os.path.join(folder, "static/Models/linearGanGeneratorModel.pt")
+file = os.path.join(folder, "static/Models/linearGanGeneratorModel.pt")
 G.load_state_dict(torch.load(file, map_location=torch.device("cpu")))
 
 #You can call this method from an api for example and it will return the numpy
 #corresponding to the image.
 def getLinearImage():
-  with torch.no_grad():
-      test_z = torch.randn(1, 100).to(device)
-      generated = G(test_z)
-      generated = generated.cpu()
-      numpy = generated[0].view(64, 64).numpy()
-      numpy = numpy / 2 + 0.5
-      file = my_file = os.path.join(folder, "static/Photos/image.png")
-      save_image(generated[0].view(64, 64), file, normalize = True)
-      return numpy
+    with torch.no_grad():
+        test_z = torch.randn(1, 100).to(device)
+        generated = G(test_z)
+        generated = generated.cpu()
+        grid = make_grid(generated[0].view(64, 64), normalize = True)
+        im = grid.mul(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).to("cpu", torch.uint8).numpy()
+        im = Image.fromarray(im)
+        return im

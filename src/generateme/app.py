@@ -21,24 +21,18 @@ def index():
 
 @app.route("/getStyleImage")
 def showImageStyle():
-    getStyleImage()
-    return getImage()
+    return getImage(getStyleImage())
     
 @app.route("/getConvImage")
 def showImageConv():
-    getConvImage()
-    return getImage()
+    return getImage(getConvImage())
     
 @app.route("/getLinearImage")
 def showImageLinear():
-    getLinearImage()
-    return getImage()
+    return getImage(getLinearImage())
 
-def getImage():
-    file = my_file = os.path.join(folder, "static/Photos/image.png")
-    img = Image.open(file)
+def getImage(img):
     file_object = io.BytesIO()
-
     img.save(file_object, "PNG")  
     file_object.seek(0)
 
@@ -47,5 +41,5 @@ def getImage():
     return response
     
     
-if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=5000)
+if __name__ == "__main__":
+    app.run(host = "0.0.0.0", port = 5000)
