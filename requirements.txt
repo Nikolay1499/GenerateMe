@@ -1,6 +1,6 @@
 Flask==1.1
-gevent==20.6
-numpy==1.19
-Pillow==7.2
-matplotlib==3.3
+gevent==21.1
+numpy==1.20
+Pillow==8.1
+matplotlib==3.4
 future==0.18
