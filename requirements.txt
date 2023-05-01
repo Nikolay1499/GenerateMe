@@ -1,4 +1,4 @@
-Flask==1.1
+Flask==2.3.2
 gevent==20.6
 numpy==1.19
 Pillow==7.2
